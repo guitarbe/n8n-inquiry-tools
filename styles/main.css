@@ -1,0 +1,31 @@
+/* (請將您原本 <style>...</style> 標籤內的所有 CSS 內容原封不動貼在這裡) */
+:root {
+            --primary-color: #f69c18; /* Changed from #4a90e2 to rgb(246,156,24) */
+            --secondary-color: #f5f7fa;
+            --text-color: #333;
+            --border-color: #d1d5db;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+/* ... 中間省略，請貼上您所有的 CSS ... */
+        .inquiry-terms-table td {
+            background-color: #ffffff; /* White background for data cells */
+            color: #555;
+            white-space: pre-wrap; /* Preserve line breaks */
+            word-break: break-word;
+        }
+        /* --- End Inquiry Email Styles --- */
