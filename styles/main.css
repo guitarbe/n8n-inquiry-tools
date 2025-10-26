@@ -1,638 +1,638 @@
-/* (請將您原本 <style>...</style> 標籤內的所有 CSS 內容原封不動貼在這裡) */
+/* (這是一個乾淨的版本，移除了所有隱形空白字元) */
 :root {
-            --primary-color: #f69c18; /* Changed from #4a90e2 to rgb(246,156,24) */
-            --secondary-color: #f5f7fa;
-            --text-color: #333;
-            --border-color: #d1d5db;
-            --success-color: #28a745;
-            --error-color: #dc3545;
-            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 2rem;
-            box-sizing: border-box;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.75rem;
-        }
-
-        main {
-            padding: 2rem;
-        }
-
-        .upload-container {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-            margin-bottom: 1.5rem; /* Controls space between upload area and button */
-        }
-
-        .upload-section {
-            flex: 1;
-            /* Removed margin-bottom to avoid extra space */
-        }
-
-        .upload-section h3 {
-            margin-top: 0;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        .drop-area {
-            border: 3px dashed var(--border-color);
-            border-radius: 8px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: border-color 0.3s, background-color 0.3s;
-            cursor: pointer;
-        }
-
-        .drop-area.highlight {
-            border-color: var(--primary-color);
-            background-color: #fff8ed;
-        }
-
-        .drop-area p {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #666;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .file-info {
-            margin-top: 1rem;
-            text-align: center;
-            font-weight: 500;
-            height: 1.2em; /* Reserve space to prevent layout shift */
-        }
-
-        #analysis-controls {
-            text-align: center;
-            margin: 0 0 2rem; /* Removed top margin */
-        }
-
-        #analyze-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        #analyze-btn:hover:not(:disabled) {
-            background-color: #e08c10; /* Darker shade of new primary color */
-            transform: translateY(-2px);
-        }
-
-        #analyze-btn:disabled {
-            background-color: #fadda8; /* Lighter shade of new primary color */
-            cursor: not-allowed;
-        }
-
-        #loader {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: var(--primary-color);
-            animation: spin 1s ease infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .result-container {
-            margin-top: 2rem;
-        }
-
-        .result-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 2rem; 
-        }
-
-        .result-table th, .result-table td {
-            padding: 0.9rem 1.2rem;
-            border: 1px solid var(--border-color);
-            text-align: left;
-        }
-
-        .result-table th {
-            background-color: var(--secondary-color);
-            font-weight: 600;
-            width: 30%;
-        }
-        
-        .result-table td {
-            word-break: break-word;
-            white-space: pre-wrap;
-            /* 調整 padding 以容納 input/textarea */
-            padding: 0; 
-        }
-
-        /* --- New Editable Input Styles --- */
-        .editable-input, .editable-textarea {
-            width: 100%;
-            border: 1px solid transparent; /* 預設透明邊框 */
-            background-color: transparent;
-            padding: 0.9rem 1.2rem; /* 與原 <td> padding 相同 */
-            margin: 0;
-            font-family: inherit;
-            font-size: inherit;
-            color: inherit;
-            border-radius: 0; /* 在表格中不需要圓角 */
-            box-sizing: border-box;
-            transition: background-color 0.2s, border-color 0.2s;
-        }
-
-        .editable-textarea {
-            resize: vertical;
-            min-height: 80px; /* 給 textarea 一個最小高度 */
-            line-height: 1.5;
-        }
-
-        .editable-input:hover, .editable-textarea:hover {
-            border-color: var(--border-color); /* 滑鼠懸停時顯示邊框 */
-        }
-
-        .editable-input:focus, .editable-textarea:focus {
-            outline: none;
-            background-color: #ffffff;
-            border-color: var(--primary-color);
-            /* box-shadow: 0 0 0 1px var(--primary-color); */
-        }
-        /* --- End Editable Input Styles --- */
-
-        .status-message {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-            text-align: center;
-            font-weight: 500;
-        }
-        
-        .status-message.error {
-            background-color: #ffebee;
-            color: var(--error-color);
-        }
-
-        /* New Success Style */
-        .status-message.success {
-            background-color: #e8f5e9;
-            color: var(--success-color);
-        }
-
-        #action-buttons-container {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        #action-buttons-container h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--text-color);
-            font-size: 1.5rem;
-        }
-
-        .action-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .action-btn {
-            background-color: #fff;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            padding: 0.7rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-
-        /* Responsive layout for smaller screens */
-        @media (max-width: 768px) {
-            .upload-container {
-                flex-direction: column;
-                gap: 2rem; /* Use gap for spacing between sections on mobile */
-            }
-            .upload-section {
-                width: 100%;
-            }
-            
-            /* Stack send section on mobile */
-            .form-send-section {
-                flex-direction: column;
-            }
-            .form-send-section .action-btn {
-                width: 100%;
-            }
-        }
-        
-        /* New BCC Form Styles */
-        .clarification-form {
-            margin-top: 2.5rem;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            background-color: #fafafa;
-        }
-
-        #clarification-form-title {
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 2rem;
-            color: var(--primary-color);
-        }
-
-        .form-grid {
-            display: grid;
-            /* Col1(Main), Col2(Sub), Col3(Input) */
-            grid-template-columns: 1.2fr 1.5fr 1.8fr;
-            gap: 1.2rem;
-            align-items: center;
-        }
-
-        .grid-label-main {
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding-right: 1rem;
-            border-right: 2px solid var(--border-color);
-            align-self: start; /* Align to top */
-            padding-top: 0.6rem; /* Align with input padding */
-        }
-
-        .grid-label-sub {
-            font-weight: 500;
-            color: #555;
-            padding-left: 1rem;
-        }
-
-        .grid-input {
-            width: 100%;
-        }
-
-        /* Rowspan helpers */
-        .rowspan-4 { grid-row: span 4; }
-        .rowspan-3 { grid-row: span 3; }
-        .rowspan-2 { grid-row: span 2; }
-
-        /* Input styling */
-        .form-select,
-        .input-with-suffix input {
-            width: 100%;
-            padding: 0.6rem 0.8rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .form-select:focus,
-        .input-with-suffix input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(246, 156, 24, 0.2);
-        }
-
-        .input-with-suffix {
-            display: flex;
-            align-items: center;
-        }
-
-        .input-with-suffix input {
-            border-right: none;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            flex-grow: 1;
-            /* Fix for number input spinner overlapping */
-            -moz-appearance: textfield;
-        }
-        
-        .input-with-suffix input::-webkit-outer-spin-button,
-        .input-with-suffix input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .input-with-suffix span {
-            padding: 0.6rem 0.8rem;
-            background-color: var(--secondary-color);
-            border: 1px solid var(--border-color);
-            border-left: none;
-            border-top-right-radius: 6px;
-            border-bottom-right-radius: 6px;
-            font-weight: 500;
-            color: #444;
-        }
-        /* --- End of New BCC Form Styles --- */
-        
-        /* --- New BCC Send Section Styles --- */
-        .form-send-section {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: flex-end; /* MODIFIED: Changed from space-between to flex-end */
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .form-send-section .input-with-suffix {
-            flex-grow: 1;
-        }
-
-        .form-send-section .action-btn {
-            flex-shrink: 0;
-        }
-
-        /* --- MODIFIED: Added styles for the recipient email input --- */
-        #bcc-recipient-email {
-            text-align: right; /* 靠右對齊 */
-            width: 220px;       /* 設定固定寬度以縮短 */
-            flex-grow: 0;       /* 覆蓋 class 規則，防止其伸展 */
-        }
-        /* --- End of New BCC Send Section Styles --- */
-
-        /* NEW: BCC Status Container specific margin */
-        #bcc-status-message-container {
-            margin-top: 1.5rem; /* Add some space above the message */
-        }
-
-        /* NEW: BCC Loader Styles */
-        #bcc-loader {
-            display: none;
-            text-align: center;
-            margin-top: 1.5rem; /* Match the status message margin */
-        }
-
-        /* --- UPDATED Inquiry Email Styles --- */
-        #inquiry-email-container {
-            background-color: #fafafa; /* This is the outer container, it's fine */
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden; /* To contain the header */
-            margin-top: 2rem;
-        }
-
-        .inquiry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--secondary-color);
-            padding: 0.75rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .inquiry-header h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            color: var(--text-color);
-        }
-
-        #inquiry-email-content {
-            padding: 2rem; /* Increased padding */
-            font-family: var(--font-family);
-            color: var(--text-color);
-            /* max-height: 500px; */ /* REMOVED: 移除最大高度限制 */
-            /* overflow-y: auto; */ /* REMOVED: 移除滾動條 */
-            background-color: #f7f7f7; /* Light gray background for the scrollable area */
-            line-height: 1.6;
-        }
-
-        .inquiry-body {
-            /* This is the white email body inside the content area */
-            max-width: 700px; 
-            margin: 0 auto; 
-            background-color: #ffffff; 
-            padding: 2.5rem;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0; /* Lighter border for the email itself */
-        }
-
-        .inquiry-main-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin: 0;
-            padding-bottom: 0.75rem;
-            border-bottom: 3px solid var(--primary-color);
-        }
-
-        .inquiry-greeting {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .inquiry-intro {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            /* white-space: pre-wrap; */ /* REMOVED: 移除此行以修正不正確的換行 */
-        }
-
-        .inquiry-section-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-top: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .inquiry-card {
-            background-color: #fafafa; /* Light gray for cards */
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .inquiry-card-label {
-            font-weight: 600;
-            color: #333;
-            font-size: 1.05rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .inquiry-card-value {
-            font-size: 1rem;
-            color: #555;
-            white-space: pre-wrap; /* Preserve line breaks from textarea */
-            word-break: break-word; /* Ensure long values wrap */
-        }
-
-        .action-btn-small {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn-small:hover {
-            background-color: #e08c10;
-        }
-        
-        /* NEW: Hover effect for the refresh button */
-        #refresh-inquiry-btn:hover {
-            background-color: #5a6268;
-            border-color: #5a6268;
-        }
-        
-        /* --- NEW Styles for Inquiry Content --- */
-        .inquiry-card.highlight-a {
-            background-color: #fffbeb; /* Light yellow */
-            border-color: #fde68a; /* Yellow border */
-        }
-
-        .inquiry-list {
-            list-style-type: disc;
-            padding-left: 2rem;
-            margin-top: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .inquiry-list li {
-            margin-bottom: 0.5rem;
-        }
-
-        .inquiry-download-btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 600;
-            font-size: 1.05rem;
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            margin: 0.5rem 0 1.5rem;
-            transition: background-color 0.3s;
-            text-align: center;
-        }
-
-        .inquiry-download-btn:hover {
-            background-color: #e08c10;
-            color: white; /* 確保 hover 時文字也是白色 */
-        }
-
-        .inquiry-login-info {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .inquiry-card-footer {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 1rem;
-            margin-bottom: 0;
-        }
-        
-        /* --- UPDATED: 修改 a 標籤樣式，使其排除 .inquiry-download-btn --- */
-        .inquiry-body a:not(.inquiry-download-btn) {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .inquiry-body a:not(.inquiry-download-btn):hover {
-            text-decoration: underline;
-        }
-        /* --- END UPDATE --- */
-
-        /* NEW: Styles for the new "重點商業條款" table */
-        .inquiry-terms-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 2rem;
-            border: 1px solid #e0e0e0; /* Outer border for the table */
-            border-radius: 8px; /* Rounded corners for the table */
-            overflow: hidden; /* Ensures rounded corners apply to content */
-        }
-
-        .inquiry-terms-table th,
-        .inquiry-terms-table td {
-            padding: 0.9rem 1.2rem;
-            border: 1px solid #e0e0e0; /* Internal borders */
-            text-align: left;
-            vertical-align: top; /* Align content to the top */
-        }
-
-        .inquiry-terms-table th {
-            background-color: #fafafa; /* Light gray background for headers */
-            font-weight: 600;
-            width: 30%; /* Adjust as needed */
-            color: #333;
-        }
-
-        .inquiry-terms-table td {
-            background-color: #ffffff; /* White background for data cells */
-            color: #555;
-            white-space: pre-wrap; /* Preserve line breaks */
-            word-break: break-word;
-        }
-        /* --- End Inquiry Email Styles --- */
+    --primary-color: #f69c18; /* Changed from #4a90e2 to rgb(246,156,24) */
+    --secondary-color: #f5f7fa;
+    --text-color: #333;
+    --border-color: #d1d5db;
+    --success-color: #28a745;
+    --error-color: #dc3545;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+}
+
+main {
+    padding: 2rem;
+}
+
+.upload-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem; /* Controls space between upload area and button */
+}
+
+.upload-section {
+    flex: 1;
+    /* Removed margin-bottom to avoid extra space */
+}
+
+.upload-section h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.drop-area {
+    border: 3px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: border-color 0.3s, background-color 0.3s;
+    cursor: pointer;
+}
+
+.drop-area.highlight {
+    border-color: var(--primary-color);
+    background-color: #fff8ed;
+}
+
+.drop-area p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-info {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 500;
+    height: 1.2em; /* Reserve space to prevent layout shift */
+}
+
+#analysis-controls {
+    text-align: center;
+    margin: 0 0 2rem; /* Removed top margin */
+}
+
+#analyze-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#analyze-btn:hover:not(:disabled) {
+    background-color: #e08c10; /* Darker shade of new primary color */
+    transform: translateY(-2px);
+}
+
+#analyze-btn:disabled {
+    background-color: #fadda8; /* Lighter shade of new primary color */
+    cursor: not-allowed;
+}
+
+#loader {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-color);
+    animation: spin 1s ease infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.result-container {
+    margin-top: 2rem;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem; 
+}
+
+.result-table th, .result-table td {
+    padding: 0.9rem 1.2rem;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.result-table th {
+    background-color: var(--secondary-color);
+    font-weight: 600;
+    width: 30%;
+}
+
+.result-table td {
+    word-break: break-word;
+    white-space: pre-wrap;
+    /* 調整 padding 以容納 input/textarea */
+    padding: 0; 
+}
+
+/* --- New Editable Input Styles --- */
+.editable-input, .editable-textarea {
+    width: 100%;
+    border: 1px solid transparent; /* 預設透明邊框 */
+    background-color: transparent;
+    padding: 0.9rem 1.2rem; /* 與原 <td> padding 相同 */
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    border-radius: 0; /* 在表格中不需要圓角 */
+    box-sizing: border-box;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.editable-textarea {
+    resize: vertical;
+    min-height: 80px; /* 給 textarea 一個最小高度 */
+    line-height: 1.5;
+}
+
+.editable-input:hover, .editable-textarea:hover {
+    border-color: var(--border-color); /* 滑鼠懸停時顯示邊框 */
+}
+
+.editable-input:focus, .editable-textarea:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: var(--primary-color);
+    /* box-shadow: 0 0 0 1px var(--primary-color); */
+}
+/* --- End Editable Input Styles --- */
+
+.status-message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.status-message.error {
+    background-color: #ffebee;
+    color: var(--error-color);
+}
+
+/* New Success Style */
+.status-message.success {
+    background-color: #e8f5e9;
+    color: var(--success-color);
+}
+
+#action-buttons-container {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+#action-buttons-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-size: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.action-btn {
+    background-color: #fff;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .upload-container {
+        flex-direction: column;
+        gap: 2rem; /* Use gap for spacing between sections on mobile */
+    }
+    .upload-section {
+        width: 100%;
+    }
+    
+    /* Stack send section on mobile */
+    .form-send-section {
+        flex-direction: column;
+    }
+    .form-send-section .action-btn {
+        width: 100%;
+    }
+}
+
+/* New BCC Form Styles */
+.clarification-form {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: #fafafa;
+}
+
+#clarification-form-title {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.form-grid {
+    display: grid;
+    /* Col1(Main), Col2(Sub), Col3(Input) */
+    grid-template-columns: 1.2fr 1.5fr 1.8fr;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+.grid-label-main {
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding-right: 1rem;
+    border-right: 2px solid var(--border-color);
+    align-self: start; /* Align to top */
+    padding-top: 0.6rem; /* Align with input padding */
+}
+
+.grid-label-sub {
+    font-weight: 500;
+    color: #555;
+    padding-left: 1rem;
+}
+
+.grid-input {
+    width: 100%;
+}
+
+/* Rowspan helpers */
+.rowspan-4 { grid-row: span 4; }
+.rowspan-3 { grid-row: span 3; }
+.rowspan-2 { grid-row: span 2; }
+
+/* Input styling */
+.form-select,
+.input-with-suffix input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-select:focus,
+.input-with-suffix input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(246, 156, 24, 0.2);
+}
+
+.input-with-suffix {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-suffix input {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    flex-grow: 1;
+    /* Fix for number input spinner overlapping */
+    -moz-appearance: textfield;
+}
+
+.input-with-suffix input::-webkit-outer-spin-button,
+.input-with-suffix input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-with-suffix span {
+    padding: 0.6rem 0.8rem;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-left: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-weight: 500;
+    color: #444;
+}
+/* --- End of New BCC Form Styles --- */
+
+/* --- New BCC Send Section Styles --- */
+.form-send-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end; /* MODIFIED: Changed from space-between to flex-end */
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-send-section .input-with-suffix {
+    flex-grow: 1;
+}
+
+.form-send-section .action-btn {
+    flex-shrink: 0;
+}
+
+/* --- MODIFIED: Added styles for the recipient email input --- */
+#bcc-recipient-email {
+    text-align: right; /* 靠右對齊 */
+    width: 220px;       /* 設定固定寬度以縮短 */
+    flex-grow: 0;       /* 覆蓋 class 規則，防止其伸展 */
+}
+/* --- End of New BCC Send Section Styles --- */
+
+/* NEW: BCC Status Container specific margin */
+#bcc-status-message-container {
+    margin-top: 1.5rem; /* Add some space above the message */
+}
+
+/* NEW: BCC Loader Styles */
+#bcc-loader {
+    display: none;
+    text-align: center;
+    margin-top: 1.5rem; /* Match the status message margin */
+}
+
+/* --- UPDATED Inquiry Email Styles --- */
+#inquiry-email-container {
+    background-color: #fafafa; /* This is the outer container, it's fine */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden; /* To contain the header */
+    margin-top: 2rem;
+}
+
+.inquiry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inquiry-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+#inquiry-email-content {
+    padding: 2rem; /* Increased padding */
+    font-family: var(--font-family);
+    color: var(--text-color);
+    /* max-height: 500px; */ /* REMOVED: 移除最大高度限制 */
+    /* overflow-y: auto; */ /* REMOVED: 移除滾動條 */
+    background-color: #f7f7f7; /* Light gray background for the scrollable area */
+    line-height: 1.6;
+}
+
+.inquiry-body {
+    /* This is the white email body inside the content area */
+    max-width: 700px; 
+    margin: 0 auto; 
+    background-color: #ffffff; 
+    padding: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0; /* Lighter border for the email itself */
+}
+
+.inquiry-main-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.inquiry-greeting {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.inquiry-intro {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    /* white-space: pre-wrap; */ /* REMOVED: 移除此行以修正不正確的換行 */
+}
+
+.inquiry-section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.inquiry-card {
+    background-color: #fafafa; /* Light gray for cards */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.inquiry-card-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+}
+
+.inquiry-card-value {
+    font-size: 1rem;
+    color: #555;
+    white-space: pre-wrap; /* Preserve line breaks from textarea */
+    word-break: break-word; /* Ensure long values wrap */
+}
+
+.action-btn-small {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn-small:hover {
+    background-color: #e08c10;
+}
+
+/* NEW: Hover effect for the refresh button */
+#refresh-inquiry-btn:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+/* --- NEW Styles for Inquiry Content --- */
+.inquiry-card.highlight-a {
+    background-color: #fffbeb; /* Light yellow */
+    border-color: #fde68a; /* Yellow border */
+}
+
+.inquiry-list {
+    list-style-type: disc;
+    padding-left: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.inquiry-list li {
+    margin-bottom: 0.5rem;
+}
+
+.inquiry-download-btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    margin: 0.5rem 0 1.5rem;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+.inquiry-download-btn:hover {
+    background-color: #e08c10;
+    color: white; /* 確保 hover 時文字也是白色 */
+}
+
+.inquiry-login-info {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.inquiry-card-footer {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+/* --- UPDATED: 修改 a 標籤樣式，使其排除 .inquiry-download-btn --- */
+.inquiry-body a:not(.inquiry-download-btn) {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+.inquiry-body a:not(.inquiry-download-btn):hover {
+    text-decoration: underline;
+}
+/* --- END UPDATE --- */
+
+/* NEW: Styles for the new "重點商業條款" table */
+.inquiry-terms-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    border: 1px solid #e0e0e0; /* Outer border for the table */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures rounded corners apply to content */
+}
+
+.inquiry-terms-table th,
+.inquiry-terms-table td {
+    padding: 0.9rem 1.2rem;
+    border: 1px solid #e0e0e0; /* Internal borders */
+    text-align: left;
+    vertical-align: top; /* Align content to the top */
+}
+
+.inquiry-terms-table th {
+    background-color: #fafafa; /* Light gray background for headers */
+    font-weight: 600;
+    width: 30%; /* Adjust as needed */
+    color: #333;
+}
+
+.inquiry-terms-table td {
+    background-color: #ffffff; /* White background for data cells */
+    color: #555;
+    white-space: pre-wrap; /* Preserve line breaks */
+    word-break: break-word;
+}
+/* --- End Inquiry Email Styles --- */
