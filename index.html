@@ -1,174 +1,175 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>請購單與報價單分析器</title>
-        <link rel="stylesheet" href="styles/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>請購單與報價單分析器</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>請購單與報價單重點資訊萃取</h1>
-        </header>
-        <main>
-            <div class="upload-container">
-                                <div class="upload-section">
-                    <h3>1. 上傳請購單 (PDF)</h3>
-                    <div id="drop-area-requisition" class="drop-area">
-                        <input type="file" id="file-input-requisition" class="file-input" accept=".pdf">
-                        <p>將檔案拖曳至此處，或點擊選擇</p>
-                    </div>
-                    <div id="file-info-requisition" class="file-info"></div>
-                </div>
+    <div class="container">
+        <header>
+            <h1>請購單與報價單重點資訊萃取</h1>
+        </header>
+        <main>
+            <div class="upload-container">
+                <div class="upload-section">
+                    <h3>1. 上傳請購單 (PDF)</h3>
+                    <div id="drop-area-requisition" class="drop-area">
+                        <input type="file" id="file-input-requisition" class="file-input" accept=".pdf">
+                        <p>將檔案拖曳至此處，或點擊選擇</p>
+                    </div>
+                    <div id="file-info-requisition" class="file-info"></div>
+                </div>
 
-                                <div class="upload-section">
-                    <h3>2. 上傳報價單 (PDF, 選填)</h3>
-                    <div id="drop-area-quotation" class="drop-area">
-                        <input type="file" id="file-input-quotation" class="file-input" accept=".pdf">
-                        <p>將檔案拖曳至此處，或點擊選擇</p>
-                    </div>
-                    <div id="file-info-quotation" class="file-info"></div>
-                </div>
-            </div>
+                <div class="upload-section">
+                    <h3>2. 上傳報價單 (PDF, 選填)</h3>
+                    <div id="drop-area-quotation" class="drop-area">
+                        <input type="file" id="file-input-quotation" class="file-input" accept=".pdf">
+                        <p>將檔案拖曳至此處，或點擊選擇</p>
+                    </div>
+                    <div id="file-info-quotation" class="file-info"></div>
+                </div>
+            </div>
 
-                        <div id="analysis-controls">
-                <button id="analyze-btn" disabled>開始分析</button>
-            </div>
-            <div id="loader">
-                <div class="spinner"></div>
-                <p>AI 正在分析文件，請稍候...</p>
-            </div>
-            
-            <div id="status-message-container"></div>
+            <div id="analysis-controls">
+                <button id="analyze-btn" disabled>開始分析</button>
+            </div>
+            <div id="loader">
+                <div class="spinner"></div>
+                <p>AI 正在分析文件，請稍候...</p>
+            </div>
+            
+            <div id="status-message-container"></div>
 
-                        <div id="result-container-requisition" class="result-container">
-                <h2>分析結果</h2>
-                <table class="result-table">
-                    <tbody id="result-body-requisition"></tbody>
-                </table>
-            </div>
-            
-                        <div id="action-buttons-container">
-                <h2>後續動作</h2>
-                <div class="action-buttons">
-                    <button class="action-btn" id="generate-rfq">生成RFQ</button>
-                    <button class="action-btn" id="generate-clarification">生成商業澄清表</button>
-                    <button class="action-btn" id="generate-inquiry">生成詢價信</button>
-                    <button class="action-btn" id="recommend-vendors">推薦詢價廠商</button>
-                </div>
+            <div id="result-container-requisition" class="result-container">
+                <h2>分析結果</h2>
+                <table class="result-table">
+                    <tbody id="result-body-requisition"></tbody>
+                </table>
+            </div>
+            
+            <div id="action-buttons-container">
+                <h2>後續動作</h2>
+                <div class="action-buttons">
+                    <button class="action-btn" id="generate-rfq">生成RFQ</button>
+                    <button class="action-btn" id="generate-clarification">生成商業澄清表</button>
+                    <button class="action-btn" id="generate-inquiry">生成詢價信</button>
+                    <button class="action-btn" id="recommend-vendors">推薦詢價廠商</button>
+                </div>
 
-                                <div id="inquiry-email-container" style="display: none;">
-                    <div class="inquiry-header">
-                        <h3>詢價信內容預覽</h3>
-                        <div>                             <button id="refresh-inquiry-btn" class="action-btn-small" style="background-color: #6c757d; border-color: #6c757d;">重新抓取分析結果內容</button>
-                            <button id="copy-inquiry-btn" class="action-btn-small" style="margin-left: 0.5rem;">複製內容</button>
-                        </div>
-                    </div>
-                    <div id="inquiry-email-content">
-                                            </div>
-                </div>
-                            </div>
+                <div id="inquiry-email-container" style="display: none;">
+                    <div class="inquiry-header">
+                        <h3>詢價信內容預覽</h3>
+                        <div>
+                            <button id="refresh-inquiry-btn" class="action-btn-small" style="background-color: #6c757d; border-color: #6c757d;">重新抓取分析結果內容</button>
+                            <button id="copy-inquiry-btn" class="action-btn-small" style="margin-left: 0.5rem;">複製內容</button>
+                        </div>
+                    </div>
+                    <div id="inquiry-email-content">
+                        </div>
+                </div>
+            </div>
 
-                        <div id="clarification-form-container" class="clarification-form" style="display: none;">
-                <h2 id="clarification-form-title">商業澄清表 (BCC) 輸入欄位</h2>
-                <div class="form-grid">
-                                        <div class="grid-label-main">計價模式</div>
-                    <div class="grid-label-sub"></div>                     <div class="grid-input">
-                        <select id="bcc-pricing-model" class="form-select">
-                            <option value="total_price">總價承攬</option>
-                            <option value="unit_price">實做實算</option>
-                        </select>
-                    </div>
-            
-                                        <div class="grid-label-main rowspan-4">付款方式</div>
-                    <div class="grid-label-sub">預付款</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-advance-payment" value="0" min="0">
-                            <span>%</span>
-                        </div>
-                    </div>
-                    <div class="grid-label-sub">估驗款</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-progress-payment" value="90" min="0">
-                            <span>%</span>
-                        </div>
-                    </div>
-                    <div class="grid-label-sub">保留款</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-retention" value="10" min="0">
-                            <span>%</span>
-                        </div>
-                    </div>
-                    <div class="grid-label-sub">付款天數</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-payment-days" value="45" min="0">
-                            <span>天</span>
-                        </div>
-                    </div>
-            
-                                        <div class="grid-label-main rowspan-3">保證金規定</div>
-                    <div class="grid-label-sub">預付款保證金</div>
-          M         <div class="grid-input">
-                        <select id="bcc-advance-guarantee" class="form-select">
-                            <option value="none">無</option>
-                            <option value="match_advance">保證金金額同預付款金額</option>
-                        </select>
-                    </div>
-                    <div class="grid-label-sub">履約保證金</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-performance-bond" value="10" min="0">
-                            <span>%</span>
-                        </div>
-                    </div>
-                    <div class="grid-label-sub">保固保證金</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-warranty-bond" value="10" min="0">
-                            <span>%</span>
-                        </div>
-                    </div>
-            
-                                        <div class="grid-label-main rowspan-2">逾期違約金</div>
-                    <div class="grid-label-sub">每日罰款百分比</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-daily-penalty" value="0.1" step="0.1" min="0">
-                            <span>%</span>
-                        </div>
-                    </div>
-                    <div class="grid-label-sub">罰款上限</div>
-                    <div class="grid-input">
-                        <div class="input-with-suffix">
-                            <input type="number" id="bcc-penalty-cap" value="10" min="0">
-                            <span>%</span>
-                        </div>
-                    </div>
-                </div>
+            <div id="clarification-form-container" class="clarification-form" style="display: none;">
+                <h2 id="clarification-form-title">商業澄清表 (BCC) 輸入欄位</h2>
+                <div class="form-grid">
+                    <div class="grid-label-main">計價模式</div>
+                    <div class="grid-label-sub"></div> <div class="grid-input">
+                        <select id="bcc-pricing-model" class="form-select">
+                            <option value="total_price">總價承攬</option>
+                            <option value="unit_price">實做實算</option>
+                        </select>
+                    </div>
+            
+                    <div class="grid-label-main rowspan-4">付款方式</div>
+                    <div class="grid-label-sub">預付款</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-advance-payment" value="0" min="0">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <div class="grid-label-sub">估驗款</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-progress-payment" value="90" min="0">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <div class="grid-label-sub">保留款</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-retention" value="10" min="0">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <div class="grid-label-sub">付款天數</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-payment-days" value="45" min="0">
+                            <span>天</span>
+                        </div>
+                    </div>
+            
+                    <div class="grid-label-main rowspan-3">保證金規定</div>
+                    <div class="grid-label-sub">預付款保證金</div>
+                    <div class="grid-input">
+                        <select id="bcc-advance-guarantee" class="form-select">
+                            <option value="none">無</option>
+                            <option value="match_advance">保證金金額同預付款金額</option>
+                        </select>
+                    </div>
+                    <div class="grid-label-sub">履約保證金</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-performance-bond" value="10" min="0">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <div class="grid-label-sub">保固保證金</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-warranty-bond" value="10" min="0">
+                            <span>%</span>
+                        </div>
+                    </div>
+            
+                    <div class="grid-label-main rowspan-2">逾期違約金</div>
+                    <div class="grid-label-sub">每日罰款百分比</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-daily-penalty" value="0.1" step="0.1" min="0">
+                            <span>%</span>
+                        </div>
+                    </div>
+                    <div class="grid-label-sub">罰款上限</div>
+                    <div class="grid-input">
+                        <div class="input-with-suffix">
+                            <input type="number" id="bcc-penalty-cap" value="10" min="0">
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
 
-                                <div class="form-send-section">
-                    <div class="input-with-suffix">
-                        <input type="text" id="bcc-recipient-email" placeholder="請輸入收件者 Email 帳號">
-                        <span>@ctci.com</span>
-                    </div>
-                    <button id="bcc-send-btn" class="action-btn">寄出給收件者</button>
-M             </div>
-                                                <div id="bcc-status-message-container"></div>
-                                                <div id="bcc-loader">
-                    <div class="spinner"></div>
-                    <p>文件準備中，請稍候...</p>
-                </div>
-                            </div>
-                    </main>
-    </div>
+                <div class="form-send-section">
+                    <div class="input-with-suffix">
+                        <input type="text" id="bcc-recipient-email" placeholder="請輸入收件者 Email 帳號">
+                        <span>@ctci.com</span>
+                    </div>
+                    <button id="bcc-send-btn" class="action-btn">寄出給收件者</button>
+                </div>
+                <div id="bcc-status-message-container"></div>
+                <div id="bcc-loader">
+                    <div class="spinner"></div>
+                    <p>文件準備中，請稍候...</p>
+                </div>
+            </div>
+        </main>
+    </div>
 
-        <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 
 </body>
 </html>
