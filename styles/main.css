@@ -146,6 +146,13 @@ main {
     100% { transform: rotate(360deg); }
 }
 
+/* 確保分析結果表格容器永遠顯示 */
+#result-container-requisition {
+    display: block;
+    /* 補上原本 .result-container 的間距 */
+    margin-top: 2rem;
+}
+
 .result-container {
     margin-top: 2rem;
 }
