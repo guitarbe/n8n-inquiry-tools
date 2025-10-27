@@ -194,3 +194,47 @@ Email: <a href="mailto:nick.liu@ctci.com" style="${linkStyle}">nick.liu@ctci.com
     </div>
     `;
     // --- ***
+
+    // Return the generated HTML so callers can use or insert it
+    return htmlTemplate;
+}
+
+/**
+ * 初始化詢價信功能：綁定按鈕，產生並顯示內容、複製內容等
+ */
+export function initInquiryEmail() {
+    try {
+        if (!dom.inquiryBtn || !dom.inquiryContainer || !dom.inquiryContent) return;
+
+        dom.inquiryBtn.addEventListener('click', () => {
+            // Generate and show inquiry content
+            const html = generateInquiryEmail();
+            dom.inquiryContent.innerHTML = html;
+            dom.inquiryContainer.style.display = 'block';
+        });
+
+        if (dom.refreshInquiryBtn) {
+            dom.refreshInquiryBtn.addEventListener('click', () => {
+                const html = generateInquiryEmail();
+                dom.inquiryContent.innerHTML = html;
+            });
+        }
+
+        if (dom.copyInquiryBtn) {
+            dom.copyInquiryBtn.addEventListener('click', async () => {
+                try {
+                    const html = generateInquiryEmail();
+                    // Copy plain text version (strip tags) for safety
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    const text = tmp.innerText;
+                    await navigator.clipboard.writeText(text);
+                } catch (err) {
+                    console.error('Copy inquiry failed', err);
+                }
+            });
+        }
+    } catch (err) {
+        console.error('initInquiryEmail error', err);
+    }
+}
