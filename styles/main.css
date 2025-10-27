@@ -70,8 +70,12 @@ main {
 .drop-area {
     border: 3px dashed var(--border-color);
     border-radius: 8px;
+    position: relative; /* 讓內部的透明 file input 可以絕對定位覆蓋整個區塊 */
+    display: block; /* ensure label renders as block so it fills its container */
+    box-sizing: border-box; /* include padding/border in width calculations */
     padding: 2.5rem;
     text-align: center;
+    min-height: 120px; /* keep a visible rectangular area even with small content */
     transition: border-color 0.3s, background-color 0.3s;
     cursor: pointer;
 }
@@ -88,7 +92,13 @@ main {
 }
 
 .file-input {
-    display: none;
+    /* 改為覆蓋整個 drop 區塊的透明按鈕，提升點擊相容性 */
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
 }
 
 .file-info {
@@ -147,9 +157,6 @@ main {
 }
 
 /* 移除針對特定ID的規則，改為通用規則 */
-#result-container-requisition {
-    /* display: block; (規則已移至 .result-container) */
-}
 
 .result-container {
     display: block !important; /* 強制顯示分析結果區塊，避免被其他規則覆寫 */
@@ -371,6 +378,8 @@ main {
     border-bottom-right-radius: 0;
     flex-grow: 1;
     /* Fix for number input spinner overlapping */
+    appearance: textfield;
+    -webkit-appearance: textfield;
     -moz-appearance: textfield;
 }
 
