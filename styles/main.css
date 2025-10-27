@@ -146,14 +146,13 @@ main {
     100% { transform: rotate(360deg); }
 }
 
-/* 確保分析結果表格容器永遠顯示 */
+/* 移除針對特定ID的規則，改為通用規則 */
 #result-container-requisition {
-    display: block;
-    /* 補上原本 .result-container 的間距 */
-    margin-top: 2rem;
+    /* display: block; (規則已移至 .result-container) */
 }
 
 .result-container {
+    display: block; /* 確保所有分析結果容器預設都是可見的 */
     margin-top: 2rem;
 }
 
