@@ -43,10 +43,56 @@
             
             <div id="status-message-container"></div>
 
-            <div id="result-container-requisition" class="result-container">
+            <div id="result-container-requisition" class="result-container" aria-live="polite">
                 <h2>分析結果</h2>
                 <table class="result-table">
-                    <tbody id="result-body-requisition"></tbody>
+                    <tbody id="result-body-requisition">
+                        <!-- Static placeholder rows to ensure fields are always visible even before analysis -->
+                        <tr>
+                            <th>專案承攬型態</th>
+                            <td><input id="input-project_mode" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>業主名稱</th>
+                            <td><input id="input-owner_name" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>專案編號</th>
+                            <td><input id="input-project_no" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>請購單編號</th>
+                            <td><input id="input-requisition_no" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>專案名稱</th>
+                            <td><input id="input-project_name" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>工程名稱</th>
+                            <td><input id="input-work_name" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>工程地點</th>
+                            <td><input id="input-site_location" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>工程範圍</th>
+                            <td><textarea id="input-scope_of_work" class="editable-textarea"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>主要工程工作量</th>
+                            <td><textarea id="input-major_workfront" class="editable-textarea"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>預計工期</th>
+                            <td><input id="input-work_period" class="editable-input" type="text" value=""></td>
+                        </tr>
+                        <tr>
+                            <th>保固期</th>
+                            <td><input id="input-guarantee_period" class="editable-input" type="text" value=""></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             

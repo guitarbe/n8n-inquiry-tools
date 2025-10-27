@@ -152,8 +152,9 @@ main {
 }
 
 .result-container {
-    display: block; /* 確保所有分析結果容器預設都是可見的 */
+    display: block !important; /* 強制顯示分析結果區塊，避免被其他規則覆寫 */
     margin-top: 2rem;
+    min-height: 6rem; /* 若內容為空，保留空間讓使用者看見區塊 */
 }
 
 .result-table {
