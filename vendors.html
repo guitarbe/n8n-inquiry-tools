@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>推薦詢價廠商</title>
+  <link rel="stylesheet" href="styles/vendors.css">
+</head>
+<body>
+  <main class="vendors-container">
+    <header>
+      <h1>推薦詢價廠商</h1>
+    </header>
+
+    <section class="search-panel">
+      <div class="note">來源：已從首頁擷取的欄位已自動填入（可編輯）。若要自動搜尋，請在右側輸入 n8n Webhook URL 並啟用。</div>
+      <div class="form-grid">
+        <div class="fields">
+          <label>業主名稱<input id="owner_name" type="text"></label>
+          <label>專案名稱<input id="project_name" type="text"></label>
+          <label>專案編號<input id="project_no" type="text"></label>
+          <label>請購單編號<input id="requisition_no" type="text"></label>
+          <label>工程名稱<input id="work_name" type="text"></label>
+          <label>工程地點<input id="site_location" type="text"></label>
+          <label>工程範圍<textarea id="scope_of_work"></textarea></label>
+          <label>主要工程工作量<textarea id="major_workfront"></textarea></label>
+        </div>
+        <div class="controls">
+          <label>n8n Webhook URL
+            <input id="webhook_url" type="text" placeholder="https://.../webhook/...">
+          </label>
+          <label>每頁顯示
+            <select id="per_page">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+          <label>排序
+            <select id="sort_by">
+              <option value="score_desc">相似度(高→低)</option>
+              <option value="score_asc">相似度(低→高)</option>
+            </select>
+          </label>
+          <div class="actions">
+            <button id="search-btn">搜尋</button>
+            <button id="open-in-main">返回主頁</button>
+          </div>
+          <div id="status" class="status"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-panel">
+      <h2>搜尋結果</h2>
+      <div id="results-container">
+        <!-- results table injected here -->
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="scripts/vendors.js"></script>
+</body>
+</html>

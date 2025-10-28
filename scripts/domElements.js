@@ -30,3 +30,6 @@ export const inquiryContainer = document.getElementById('inquiry-email-container
 export const inquiryContent = document.getElementById('inquiry-email-content');
 export const copyInquiryBtn = document.getElementById('copy-inquiry-btn');
 export const refreshInquiryBtn = document.getElementById('refresh-inquiry-btn');
+
+// Recommend vendors button
+export const recommendVendorsBtn = document.getElementById('recommend-vendors');

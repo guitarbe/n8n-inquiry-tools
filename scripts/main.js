@@ -2,7 +2,7 @@
 import { state } from './state.js';
 
 // 匯入 DOM 元素
-import { analyzeBtn } from './domElements.js';
+import { analyzeBtn, recommendVendorsBtn } from './domElements.js';
 
 // 匯入功能模組
 import { setupUploadArea } from './fileUpload.js';
@@ -32,4 +32,36 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 5. 執行一次 UI 重置
     resetUI();
+
+    // 6. 推薦詢價廠商：將首頁欄位打包放入 localStorage 並在新分頁開啟 vendors.html
+    if (recommendVendorsBtn) {
+        recommendVendorsBtn.addEventListener('click', () => {
+            try {
+                const keys = [
+                    'owner_name',
+                    'project_name',
+                    'project_no',
+                    'requisition_no',
+                    'work_name',
+                    'site_location',
+                    'scope_of_work',
+                    'major_workfront'
+                ];
+                const payload = {};
+                keys.forEach(k => {
+                    const el = document.getElementById('input-' + k);
+                    payload[k] = el ? (el.value || '') : '';
+                });
+
+                // store payload for vendors page to read
+                localStorage.setItem('vendors_search_payload', JSON.stringify(payload));
+
+                // open vendors.html in a new tab
+                window.open('vendors.html', '_blank');
+            } catch (err) {
+                console.error('recommend vendors failed', err);
+                alert('無法開啟推薦廠商頁面，請檢查瀏覽器設定或 console 以取得更多資訊。');
+            }
+        });
+    }
 });

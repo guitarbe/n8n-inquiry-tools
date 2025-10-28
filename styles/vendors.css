@@ -1,0 +1,22 @@
+:root{
+  --primary:#f69c18;
+  --text:#333;
+}
+body{font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#f5f7fa;color:var(--text);margin:0;padding:2rem}
+.vendors-container{max-width:1000px;margin:0 auto;background:#fff;border-radius:10px;padding:1.5rem;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
+header h1{margin:0 0 1rem;color:var(--primary)}
+.form-grid{display:flex;gap:1.2rem}
+.fields{flex:1;display:grid;grid-template-columns:1fr;gap:0.6rem}
+.fields label{display:flex;flex-direction:column;font-weight:600}
+.fields input,.fields textarea{padding:0.6rem;border:1px solid #ddd;border-radius:6px}
+.controls{width:320px;display:flex;flex-direction:column;gap:0.6rem}
+.controls label{display:flex;flex-direction:column}
+.controls input, .controls select{padding:0.5rem;border:1px solid #ddd;border-radius:6px}
+.actions{display:flex;gap:0.5rem;margin-top:0.5rem}
+.actions button{padding:0.6rem 0.9rem;border-radius:6px;border:0;background:var(--primary);color:#fff;cursor:pointer}
+.status{font-size:0.95rem;color:#666}
+.status.error{color:#c00}
+.results-panel{margin-top:1.2rem}
+.vendors-table{width:100%;border-collapse:collapse}
+.vendors-table th,.vendors-table td{border:1px solid #e6e9ee;padding:0.6rem;text-align:left}
+.no-results{padding:1rem;color:#666}
