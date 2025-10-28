@@ -309,6 +309,15 @@ main {
     background-color: #fafafa;
 }
 
+/* Ensure all selects and inputs inside the BCC form are right-aligned */
+.clarification-form .form-select,
+.clarification-form .input-with-suffix input,
+.clarification-form input[type="text"],
+.clarification-form input[type="number"],
+.clarification-form textarea {
+    text-align: right;
+}
+
 #clarification-form-title {
     text-align: center;
     margin-top: 0;
@@ -407,13 +416,13 @@ main {
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
     display: flex;
-    justify-content: flex-end; /* MODIFIED: Changed from space-between to flex-end */
+    justify-content: flex-end; /* keep controls right-aligned */
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem; /* reduce gap between input and button */
 }
 
 .form-send-section .input-with-suffix {
-    flex-grow: 1;
+    flex-grow: 0; /* don't stretch the email input container — keep it compact next to the button */
 }
 
 .form-send-section .action-btn {
