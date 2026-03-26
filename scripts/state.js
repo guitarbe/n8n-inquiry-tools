@@ -6,7 +6,7 @@ export const state = {
 };
 
 // --- Webhook URLs ---
-export const REQUISITION_ANALYSIS_WEBHOOK_URL = 'https://n8n-befun.zeabur.app/webhook/70bf039f-293b-4859-8a4d-0c2bd39f79fd';
+export const REQUISITION_ANALYSIS_WEBHOOK_URL = 'https://n8n-befun.zeabur.app/webhook/analyze-requisition';
 export const QUOTATION_ANALYSIS_WEBHOOK_URL = 'https://n8n-befun.zeabur.app/webhook/7e5e2f13-6fb4-4335-972e-f8ac86e6a9fc';
 export const BCC_SUBMIT_WEBHOOK_URL = 'https://n8n-befun.zeabur.app/webhook/151f1a1f-8445-4513-be59-728aacf114a5';
 
